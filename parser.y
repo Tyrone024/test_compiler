@@ -25,7 +25,7 @@ void yyerror(const char *s);
     ASTNode* node;
 }
 
-%type <node> program statement_list statement declaration_statement initialization_statement input_statement output_statement addition_statement expression term
+%type <node> program statement_list statement declaration_statement initialization_statement input_statement output_statement addition_statement cout
 
 %%
 
@@ -46,7 +46,7 @@ statement_list:
         $$ = createASTNode("statement_list", "");
         addChild($$, $1);
         addChild($$, $2);
-        
+
         /* 
         old format
         statement_list statement
@@ -136,35 +136,34 @@ input_statement:
     }
 
 output_statement:
-    OUTPUT expression SEMICOLON
+    OUTPUT cout SEMICOLON
     {
         $$ = createASTNode("output", "");
         addChild($$, $2);
     };
-
-
-expression:
-    term
-    {
-        $$ = $1;
-    }
-    | expression PLUS term
+    |
+    OUTPUT cout PLUS cout SEMICOLON 
     {
         // TYPE CHECKING FOR ADDITION
-        if ((strcmp($1->type, "integer") != 0 && strcmp($1->type, "identifier") != 0) || 
-        (strcmp($3->type, "integer") != 0 && strcmp($3->type, "identifier") != 0)) {
+        if ((strcmp($2->type, "integer") != 0 && strcmp($2->type, "identifier") != 0) || 
+        (strcmp($4->type, "integer") != 0 && strcmp($4->type, "identifier") != 0)) {
             yyerror("Incompatible types for addition.");
         }
 
         $$ = createASTNode("addition", "");
-        addChild($$, $1);
-        addChild($$, $3);
+        addChild($$, $2);
+        addChild($$, $4);
     }
     ;
 
-term:
+cout:
     IDENTIFIER
     {
+        // INITIALIZIATION CHECK
+        if (!isInitialized($1)) {
+            yyerror("Variable is not initialized.");
+        }
+        
         $$ = createASTNode("identifier", $1);
         free($1);
     }

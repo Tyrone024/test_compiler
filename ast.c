@@ -3,8 +3,8 @@
 // Create a new AST node
 ASTNode* createASTNode(const char* type, const char* value) {
     ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
-    node->type = strdup(type);  // Duplicate the type string
-    node->value = value ? strdup(value) : NULL; // Duplicate the value if not NULL
+    node->type = strdup(type);
+    node->value = value ? strdup(value) : NULL;
     node->children = NULL;
     node->num_children = 0;
     return node;
@@ -36,19 +36,16 @@ void freeASTNode(ASTNode* node) {
 void printAST(ASTNode* node, int level) {
     if (!node) return;
 
-    // Indent based on the level of the node in the tree
     for (int i = 0; i < level; i++) {
         printf("  ");
     }
 
-    // Print the node type and value
     printf("Node type: %s", node->type);
     if (node->value) {
         printf(", value: %s", node->value);
     }
     printf("\n");
 
-    // Recursively print each child of this node
     for (size_t i = 0; i < node->num_children; ++i) {
         printAST(node->children[i], level + 1);
     }

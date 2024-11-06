@@ -126,9 +126,8 @@ enum yysymbol_kind_t
   YYSYMBOL_initialization_statement = 16,  /* initialization_statement  */
   YYSYMBOL_input_statement = 17,           /* input_statement  */
   YYSYMBOL_output_statement = 18,          /* output_statement  */
-  YYSYMBOL_expression = 19,                /* expression  */
-  YYSYMBOL_term = 20,                      /* term  */
-  YYSYMBOL_addition_statement = 21         /* addition_statement  */
+  YYSYMBOL_cout = 19,                      /* cout  */
+  YYSYMBOL_addition_statement = 20         /* addition_statement  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -454,16 +453,16 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  20
+#define YYFINAL  19
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   26
+#define YYLAST   28
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  11
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  11
+#define YYNNTS  10
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  21
+#define YYNRULES  20
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  37
 
@@ -516,8 +515,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    33,    33,    40,    44,    61,    65,    69,    73,    77,
-      84,    95,   113,   127,   139,   147,   151,   166,   171,   177,
-     185,   199
+      84,    95,   113,   127,   139,   145,   160,   170,   176,   184,
+     198
 };
 #endif
 
@@ -537,7 +536,7 @@ static const char *const yytname[] =
   "IDENTIFIER", "STRING", "ASSIGN", "PLUS", "INPUT", "OUTPUT", "SEMICOLON",
   "$accept", "program", "statement_list", "statement",
   "declaration_statement", "initialization_statement", "input_statement",
-  "output_statement", "expression", "term", "addition_statement", YY_NULLPTR
+  "output_statement", "cout", "addition_statement", YY_NULLPTR
 };
 
 static const char *
@@ -563,8 +562,8 @@ static const yytype_int8 yypact[] =
 {
       -4,    -3,    -2,     9,    10,   -10,    -4,   -10,   -10,   -10,
      -10,   -10,    12,   -10,    -9,   -10,   -10,   -10,    -1,   -10,
-     -10,   -10,     1,    11,    13,   -10,     9,   -10,    16,   -10,
-      17,   -10,   -10,    14,    15,   -10,   -10
+     -10,     1,    11,    13,   -10,     9,   -10,    16,   -10,    17,
+     -10,    14,    15,    18,   -10,   -10,   -10
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -573,23 +572,21 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     0,     0,     2,     3,     5,     6,     7,
-       8,     9,     0,    10,     0,    18,    17,    19,     0,    15,
-       1,     4,     0,     0,     0,    13,     0,    14,     0,    11,
-       0,    12,    16,     0,     0,    21,    20
+       8,     9,     0,    10,     0,    17,    16,    18,     0,     1,
+       4,     0,     0,     0,    13,     0,    14,     0,    11,     0,
+      12,     0,     0,     0,    15,    20,    19
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -10,   -10,    20,   -10,   -10,   -10,   -10,   -10,   -10,    -6,
-     -10
+     -10,   -10,    20,   -10,   -10,   -10,   -10,   -10,    -5,   -10
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     4,     5,     6,     7,     8,     9,    10,    18,    19,
-      11
+       0,     4,     5,     6,     7,     8,     9,    10,    18,    11
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -597,16 +594,16 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,    25,    14,    12,     2,     3,    26,    13,    28,    27,
-      20,    29,    15,    16,    17,    22,    23,    24,    30,    33,
-      32,    34,     0,    31,    35,    36,    21
+       1,    24,    14,    12,     2,     3,    25,    13,    27,    26,
+      19,    28,    15,    16,    17,    21,    22,    23,    29,    32,
+      31,    33,     0,    30,    34,    35,    20,     0,    36
 };
 
 static const yytype_int8 yycheck[] =
 {
        4,    10,     4,     6,     8,     9,     7,    10,     7,    10,
        0,    10,     3,     4,     5,     3,     4,     5,     7,     3,
-      26,     4,    -1,    10,    10,    10,     6
+      25,     4,    -1,    10,    10,    10,     6,    -1,    10
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -614,25 +611,25 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,     4,     8,     9,    12,    13,    14,    15,    16,    17,
-      18,    21,     6,    10,     4,     3,     4,     5,    19,    20,
-       0,    13,     3,     4,     5,    10,     7,    10,     7,    10,
-       7,    10,    20,     3,     4,    10,    10
+      18,    20,     6,    10,     4,     3,     4,     5,    19,     0,
+      13,     3,     4,     5,    10,     7,    10,     7,    10,     7,
+      10,    19,     3,     4,    10,    10,    10
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    11,    12,    13,    13,    14,    14,    14,    14,    14,
-      15,    16,    16,    17,    18,    19,    19,    20,    20,    20,
-      21,    21
+      15,    16,    16,    17,    18,    18,    19,    19,    19,    20,
+      20
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     1,     2,     1,     1,     1,     1,     1,
-       2,     4,     4,     3,     3,     1,     3,     1,     1,     1,
-       6,     6
+       2,     4,     4,     3,     3,     5,     1,     1,     1,     6,
+       6
 };
 
 
@@ -1100,7 +1097,7 @@ yyreduce:
     {
         program = (yyvsp[0].node); //originally $$
     }
-#line 1104 "parser.tab.c"
+#line 1101 "parser.tab.c"
     break;
 
   case 3: /* statement_list: statement  */
@@ -1108,7 +1105,7 @@ yyreduce:
     {
         (yyval.node) = (yyvsp[0].node);
     }
-#line 1112 "parser.tab.c"
+#line 1109 "parser.tab.c"
     break;
 
   case 4: /* statement_list: statement statement_list  */
@@ -1117,7 +1114,7 @@ yyreduce:
         (yyval.node) = createASTNode("statement_list", "");
         addChild((yyval.node), (yyvsp[-1].node));
         addChild((yyval.node), (yyvsp[0].node));
-        
+
         /* 
         old format
         statement_list statement
@@ -1127,7 +1124,7 @@ yyreduce:
         }
         */
     }
-#line 1131 "parser.tab.c"
+#line 1128 "parser.tab.c"
     break;
 
   case 5: /* statement: declaration_statement  */
@@ -1135,7 +1132,7 @@ yyreduce:
     {
         (yyval.node) = (yyvsp[0].node);
     }
-#line 1139 "parser.tab.c"
+#line 1136 "parser.tab.c"
     break;
 
   case 6: /* statement: initialization_statement  */
@@ -1143,7 +1140,7 @@ yyreduce:
     {
         (yyval.node) = (yyvsp[0].node);
     }
-#line 1147 "parser.tab.c"
+#line 1144 "parser.tab.c"
     break;
 
   case 7: /* statement: input_statement  */
@@ -1151,7 +1148,7 @@ yyreduce:
     {
         (yyval.node) = (yyvsp[0].node);
     }
-#line 1155 "parser.tab.c"
+#line 1152 "parser.tab.c"
     break;
 
   case 8: /* statement: output_statement  */
@@ -1159,7 +1156,7 @@ yyreduce:
     {
         (yyval.node) = (yyvsp[0].node);
     }
-#line 1163 "parser.tab.c"
+#line 1160 "parser.tab.c"
     break;
 
   case 9: /* statement: addition_statement  */
@@ -1167,7 +1164,7 @@ yyreduce:
     {
         (yyval.node) = (yyvsp[0].node);
     }
-#line 1171 "parser.tab.c"
+#line 1168 "parser.tab.c"
     break;
 
   case 10: /* declaration_statement: IDENTIFIER SEMICOLON  */
@@ -1179,7 +1176,7 @@ yyreduce:
         (yyval.node) = createASTNode("declaration", (yyvsp[-1].sval));
         free((yyvsp[-1].sval));
     }
-#line 1183 "parser.tab.c"
+#line 1180 "parser.tab.c"
     break;
 
   case 11: /* initialization_statement: IDENTIFIER ASSIGN INTEGER SEMICOLON  */
@@ -1201,7 +1198,7 @@ yyreduce:
         addChild((yyval.node), createASTNode("integer", value));
         free((yyvsp[-3].sval));
     }
-#line 1205 "parser.tab.c"
+#line 1202 "parser.tab.c"
     break;
 
   case 12: /* initialization_statement: IDENTIFIER ASSIGN STRING SEMICOLON  */
@@ -1216,7 +1213,7 @@ yyreduce:
         addChild((yyval.node), createASTNode("string", (yyvsp[-1].sval)));
         free((yyvsp[-3].sval));
     }
-#line 1220 "parser.tab.c"
+#line 1217 "parser.tab.c"
     break;
 
   case 13: /* input_statement: INPUT IDENTIFIER SEMICOLON  */
@@ -1230,72 +1227,69 @@ yyreduce:
         (yyval.node) = createASTNode("input", "");
         free((yyvsp[-1].sval));
     }
-#line 1234 "parser.tab.c"
+#line 1231 "parser.tab.c"
     break;
 
-  case 14: /* output_statement: OUTPUT expression SEMICOLON  */
+  case 14: /* output_statement: OUTPUT cout SEMICOLON  */
 #line 140 "parser.y"
     {
         (yyval.node) = createASTNode("output", "");
         addChild((yyval.node), (yyvsp[-1].node));
     }
-#line 1243 "parser.tab.c"
+#line 1240 "parser.tab.c"
     break;
 
-  case 15: /* expression: term  */
-#line 148 "parser.y"
-    {
-        (yyval.node) = (yyvsp[0].node);
-    }
-#line 1251 "parser.tab.c"
-    break;
-
-  case 16: /* expression: expression PLUS term  */
-#line 152 "parser.y"
+  case 15: /* output_statement: OUTPUT cout PLUS cout SEMICOLON  */
+#line 146 "parser.y"
     {
         // TYPE CHECKING FOR ADDITION
-        if ((strcmp((yyvsp[-2].node)->type, "integer") != 0 && strcmp((yyvsp[-2].node)->type, "identifier") != 0) || 
-        (strcmp((yyvsp[0].node)->type, "integer") != 0 && strcmp((yyvsp[0].node)->type, "identifier") != 0)) {
+        if ((strcmp((yyvsp[-3].node)->type, "integer") != 0 && strcmp((yyvsp[-3].node)->type, "identifier") != 0) || 
+        (strcmp((yyvsp[-1].node)->type, "integer") != 0 && strcmp((yyvsp[-1].node)->type, "identifier") != 0)) {
             yyerror("Incompatible types for addition.");
         }
 
         (yyval.node) = createASTNode("addition", "");
-        addChild((yyval.node), (yyvsp[-2].node));
-        addChild((yyval.node), (yyvsp[0].node));
+        addChild((yyval.node), (yyvsp[-3].node));
+        addChild((yyval.node), (yyvsp[-1].node));
     }
-#line 1267 "parser.tab.c"
+#line 1256 "parser.tab.c"
     break;
 
-  case 17: /* term: IDENTIFIER  */
-#line 167 "parser.y"
+  case 16: /* cout: IDENTIFIER  */
+#line 161 "parser.y"
     {
+        // INITIALIZIATION CHECK
+        if (!isInitialized((yyvsp[0].sval))) {
+            yyerror("Variable is not initialized.");
+        }
+        
         (yyval.node) = createASTNode("identifier", (yyvsp[0].sval));
         free((yyvsp[0].sval));
     }
-#line 1276 "parser.tab.c"
+#line 1270 "parser.tab.c"
     break;
 
-  case 18: /* term: INTEGER  */
-#line 172 "parser.y"
+  case 17: /* cout: INTEGER  */
+#line 171 "parser.y"
     {
         char value[20];
         sprintf(value, "%d", (yyvsp[0].ival));
         (yyval.node) = createASTNode("integer", value);
     }
-#line 1286 "parser.tab.c"
+#line 1280 "parser.tab.c"
     break;
 
-  case 19: /* term: STRING  */
-#line 178 "parser.y"
+  case 18: /* cout: STRING  */
+#line 177 "parser.y"
     {
         (yyval.node) = createASTNode("string", (yyvsp[0].sval));
         free((yyvsp[0].sval));
     }
-#line 1295 "parser.tab.c"
+#line 1289 "parser.tab.c"
     break;
 
-  case 20: /* addition_statement: IDENTIFIER ASSIGN IDENTIFIER PLUS IDENTIFIER SEMICOLON  */
-#line 186 "parser.y"
+  case 19: /* addition_statement: IDENTIFIER ASSIGN IDENTIFIER PLUS IDENTIFIER SEMICOLON  */
+#line 185 "parser.y"
     {
         // TYPE CHECKING FOR ADDITION
         if (strcmp(getType((yyvsp[-3].sval)), "integer") != 0 || strcmp(getType((yyvsp[-1].sval)), "integer") != 0 ) {
@@ -1309,11 +1303,11 @@ yyreduce:
         free((yyvsp[-3].sval));
         free((yyvsp[-1].sval));
     }
-#line 1313 "parser.tab.c"
+#line 1307 "parser.tab.c"
     break;
 
-  case 21: /* addition_statement: IDENTIFIER ASSIGN INTEGER PLUS INTEGER SEMICOLON  */
-#line 200 "parser.y"
+  case 20: /* addition_statement: IDENTIFIER ASSIGN INTEGER PLUS INTEGER SEMICOLON  */
+#line 199 "parser.y"
     {
         char value1[20];
         sprintf(value1, "%d", (yyvsp[-3].ival));
@@ -1324,11 +1318,11 @@ yyreduce:
         addChild((yyval.node), createASTNode("integer", value2));
         free((yyvsp[-5].sval));
     }
-#line 1328 "parser.tab.c"
+#line 1322 "parser.tab.c"
     break;
 
 
-#line 1332 "parser.tab.c"
+#line 1326 "parser.tab.c"
 
       default: break;
     }
@@ -1521,7 +1515,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 212 "parser.y"
+#line 211 "parser.y"
 
 
 void yyerror(const char *s) {
